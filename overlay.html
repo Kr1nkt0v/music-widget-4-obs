@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Now Playing Overlay</title>
+
+<style>
+html, body {
+  width: 800px;
+  height: 300px;
+  margin: 0;
+  overflow: hidden;
+  background: transparent;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+#card {
+  width: 800px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 20px;
+  box-sizing: border-box;
+  background: rgba(18,18,18,0.75);
+  backdrop-filter: blur(8px);
+  border-radius: 18px;
+  color: #fff;
+}
+
+/* обложка */
+#cover-wrap {
+  width: 260px;
+  height: 260px;
+  perspective: 900px;
+  flex-shrink: 0;
+}
+
+#cover {
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  background: #222 center / cover no-repeat;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+  transform-style: preserve-3d;
+  transition: transform 0.8s ease;
+}
+
+#cover.flip {
+  transform: rotateY(180deg);
+}
+
+/* текст */
+#meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.text {
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* РЕАЛЬНО КРУПНЫЕ БУКВЫ */
+#title {
+  font-size: 48px;
+  font-weight: 800;
+}
+
+#artist {
+  font-size: 34px;
+  font-weight: 600;
+  color: #b6bcc4;
+}
+
+/* дорожка бегущей строки */
+.track {
+  display: inline-flex;
+  gap: 60px;
+  will-change: transform;
+}
+
+/* fade */
+.fade {
+  animation: fade 0.35s ease;
+}
+
+@keyframes fade {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+
+<body>
+<div id="card">
+  <div id="cover-wrap">
+    <div id="cover"></div>
+  </div>
+
+  <div id="meta">
+    <div id="title" class="text"></div>
+    <div id="artist" class="text"></div>
+  </div>
+</div>
+
+<!-- ВАЖНО: подключаем JS -->
+<script src="overlay.js"></script>
+</body>
+</html>
